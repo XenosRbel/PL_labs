@@ -9,7 +9,9 @@
 
 void init_f1()
 {
-    std::string hello_message = "В окне обозревателя решений можно добавлять: файлы и управлять ими. В окне! Team Explorer! можно подключиться к системе: управления версиями.";
+    std::cout << "Введите текст содержащий символы: ! и :" << std::endl;
+    std::string hello_message;
+    std::getline(std::cin, hello_message);
 
     std::ofstream out_stream;
     out_stream.open("F1.txt");

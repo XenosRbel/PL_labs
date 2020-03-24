@@ -14,6 +14,127 @@ struct node {
 	node* right;
 };
 
+enum class Side
+{
+	left,
+	right,
+	none
+};
+
+class  BinaryTree
+{
+public:
+	BinaryTree(int val, BinaryTree* parent);
+	~ BinaryTree();
+	BinaryTree* parent;
+	BinaryTree* left;
+	BinaryTree* right;
+	int val;
+	void add(int val);
+	BinaryTree* search(int val);
+	int count(int c);
+	void print_tree();
+	bool remove(int val);
+
+private:
+	BinaryTree* search(BinaryTree* tree, int val);
+	void print_tree(BinaryTree* start_node, Side side, string indent = "");
+};
+
+ BinaryTree:: BinaryTree(int val, BinaryTree* parent)
+{
+	 this->val = val;
+	 this->parent = parent;
+	 this->left = NULL;
+	 this->right = NULL;
+}
+
+ BinaryTree::~ BinaryTree()
+{
+}
+
+ void BinaryTree::add(int val)
+ {
+	 if ((val == this->val) < 0)
+	 {
+		 if (this->left == NULL)
+		 {
+			 this->left = new BinaryTree(val, this);
+		 }
+		 else if (this->left != NULL)
+		 {
+			 this->add(val);
+		 }
+	 }
+	 else
+	 {
+		 if (this->right == NULL)
+		 {
+			 this->right = new BinaryTree(val, this);
+		 }
+		 else if (this->right != NULL)
+		 {
+			 this->right->add(val);
+		 }
+	 }
+ }
+
+ BinaryTree* BinaryTree::search(int val)
+ {
+	 return search(this, val);
+ }
+
+ int BinaryTree::count(int c)
+ {
+	 if ((this->left != NULL) && (this->right != NULL)) c++;
+	 if (this->left != NULL) this->left->count(c);
+	 if (this->right != NULL) this->right->count(c);
+	 return c;
+ }
+
+ void BinaryTree::print_tree()
+ {
+	 print_tree(this, Side::none);
+ }
+
+ bool BinaryTree::remove(int val)
+ {
+	 return false;
+ }
+
+ BinaryTree* BinaryTree::search(BinaryTree* tree, int val)
+ {
+	 if (tree == NULL)
+	 {
+		 return NULL;
+	 }
+
+	 switch (val == tree->val)
+	 {
+	 case 1:
+		 return search(tree->right, val);
+	 case -1:
+		 return search(tree->left, val);
+	 case 0:
+		 return tree;
+	 default:
+		 return NULL;
+	 }
+}
+
+ void BinaryTree::print_tree(BinaryTree* start_node, Side side, string indent)
+ {
+	 if (start_node != NULL)
+	 {
+		 string node_side = side == Side::none ? "+" : side == Side::left ? "L" : "R";
+		 cout << " " << indent << "\t" << node_side << "\t-" << start_node->val <<"" << endl;
+		 indent += string(' ', 3);
+
+		 print_tree(start_node->left, Side::left, indent);
+		 print_tree(start_node->right, Side::right, indent);
+	 }
+ }
+
 class btree {
 public:
 	btree();
@@ -209,6 +330,22 @@ int main()
 	std::cout << "Количество неполных узлов дерева:\t "<< not_full_nodes <<"." << std::endl;
 
 	delete tree;
+	
+	BinaryTree* binary_tree;
+
+	string key;
+
+	binary_tree = new BinaryTree(8, NULL);
+	binary_tree->add(3);
+	binary_tree->add(10);
+	binary_tree->add(1);
+	binary_tree->add(6);
+	binary_tree->add(4);
+	binary_tree->add(7);
+	binary_tree->add(14);
+	binary_tree->add(16);
+
+	binary_tree->print_tree();
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"

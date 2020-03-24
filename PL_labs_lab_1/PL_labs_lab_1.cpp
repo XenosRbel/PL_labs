@@ -1,6 +1,9 @@
 ﻿// PL_labs_lab_1.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
-// Варинт 20
+// Варинт 20: Даны натуральные числа n, a1..,an. Определить количество членов
+// последовательности a1.., an:
+// а) являющихся нечетными числами;
+// 
 
 #include <iostream>
 #include <ctime>
@@ -47,9 +50,15 @@ int main()
     int* array_of_num = new int[array_size];
 
     std::srand(time(NULL));
+
     for (int i = 0; i < array_size; i++)
     {
-        array_of_num[i] = i += 0;
+        int value;
+
+        std::cout << "Input elem of array" << std::endl;
+        std::cin >> value;
+
+        array_of_num[i] = value;
     }
 
     for (size_t i = 0; i < array_size; i++)

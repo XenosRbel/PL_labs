@@ -29,34 +29,25 @@ string makeLine(int n) {
     return str;
 }
 
-int main() {
-    system("color f0");
+double func_1(double x)
+{
+    double y = 1 / (pow(x, 2) + 2 * x + 1);
+    return y;
+}
 
-    cout << makeLine(19);
+double func_2(double x)
+{
+    double y = 3 * pow(x, 2);
+    return y;
+}
 
-    printf("\n| x\t|y=3x^2|\n");
-
-    cout << makeLine(19);
-    for (float x = -M_PI + 0.3f; x <= M_PI; x += 1.0f) {
-        printf("\n|");
-        if (x > 0)
-            printf(" ");
-        printf("%.2f\t|", x);
-        if ((3 * pow(x, 2)) > 0)
-            printf(" ");
-        double f = (3 * pow(x, 2));
-        printf("%.2f\t  |", f);
-
-    }
-
-    //printf("\n| %.2f\t|%.2f\t  |", Pi, tanh(Pi)); 
-    cout << "\n" << makeLine(19);
-
+void print_func()
+{
     int x = 400;
     int y = 200;
     double a = 1;
     int b = 2;
-
+    /*
     cout << '\t';
     cout << '\t';
     cout << '\t';
@@ -72,10 +63,10 @@ int main() {
     cout << '\t';
     cout << '\t';
     cout << '\t';
-    cout << "          - 1";
+    cout << "\t- 1";
     cout << '\t';
     cout << '0';
-    cout << "       1";
+    cout << "\t1";
     cout << endl;
     cout << endl;
     cout << endl;
@@ -93,9 +84,9 @@ int main() {
     cout << '\t';
     cout << '\t';
     cout << '\t';
-    cout << "-1";
-    
-    srand ( time(NULL) );
+    cout << "-1";*/
+
+    srand(time(NULL));
     HWND hWnd = GetConsoleWindow();
     HDC hDc = GetDC(hWnd);
 
@@ -136,14 +127,47 @@ int main() {
         Line(hDc, i, 290, i + 2, 290);
     }
     for (double x1 = -250; x1 < 250; x1++) {
-        double y1 = 3 * pow(x1, 2);
-        SetPixel(hDc, x1 + x, y - y1, color);
+        double func_y_2 = func_2(x1);
+        SetPixel(hDc, x1 + x, y - func_y_2, color);
     }
 
     int xD;
-    cin >> xD;
+    std::cin >> xD;
 
     ReleaseDC(hWnd, hDc);
+}
+
+int main() {
+    system("color f0");
+
+    cout << makeLine(19);
+
+    printf("\n| x\t|y=3x^2|\n");
+
+    cout << makeLine(19);
+
+    for (float x = 0; x <= M_PI; x += 1.0f) 
+    {
+        printf("\n|");
+        
+        if (x > 0) 
+        {
+            printf(" ");
+        }
+
+        printf("%.2f\t|", x);
+        
+        if (func_2(x) > 0)
+        {
+            printf(" ");
+        }
+        printf("%.2f\t  |", func_2(x));
+    }
+
+    cout << "\n" << makeLine(19);
+
+    print_func();
+
     return 0;
 }
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
