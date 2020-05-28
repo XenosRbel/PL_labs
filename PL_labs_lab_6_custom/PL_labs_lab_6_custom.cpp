@@ -59,7 +59,24 @@ void BinaryTree::destroy_tree(BinaryTree* tree) {
 
 void BinaryTree::add(int val)
 {
-	if ((val < this->val))
+
+	if (val < this->val) {
+		if (this->left != NULL) {
+			this->left->add(val);
+		}
+		else {
+			this->left = new BinaryTree(val, this);
+		}
+	}
+	else if (val >= this->val) {
+		if (this->right != NULL) {
+			this->right->add(val);
+		}
+		else {
+			this->right = new BinaryTree(val, this);
+		}
+	}
+	/*if ((val < this->val))
 	{
 		if (this->left == NULL)
 		{
@@ -80,7 +97,7 @@ void BinaryTree::add(int val)
 		{
 			this->right->add(val);
 		}
-	}
+	}*/
 }
 
 BinaryTree* BinaryTree::search(int val)
@@ -244,8 +261,8 @@ int BinaryTree::count_partial_nodes()
 int BinaryTree::count_partial_nodes(BinaryTree* tree)
 {
 	int count_not_full = 0;
-	if (((tree->left == NULL) || (tree->right == NULL))
-		&& (tree->left != NULL) || (tree->right == NULL))
+
+	if (tree->left == 0 || tree->right == 0)
 	{
 		count_not_full++;
 	}
@@ -355,14 +372,12 @@ int main()
 			binary_tree = new BinaryTree(10, NULL);
 			binary_tree->add(6);
 			binary_tree->add(14);
-			binary_tree->add(5);
+			binary_tree->add(4);
 			binary_tree->add(8);
 			binary_tree->add(11);
 			binary_tree->add(18);
 			binary_tree->add(3);
 			binary_tree->add(7);
-			binary_tree->add(10);
-			binary_tree->add(17);
 		}
 		if (key == "-h")
 		if (key == "help")
